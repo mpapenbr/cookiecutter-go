@@ -1,0 +1,17 @@
+{%- if cookiecutter.github_specific_features.lower() == 'y' -%}
+version: 2
+updates:
+  - package-ecosystem: "gomod"
+    directory: "/"
+
+    # Auto assign PRs raised to this account on Github
+    assignees:
+      - "{{ cookiecutter.go_module_path.strip('/').split('/')[1] }}"
+
+    reviewers:
+      - "{{ cookiecutter.go_module_path.strip('/').split('/')[1] }}"
+
+    # Check for updates to dependencies once a week - Saturday
+    schedule:
+      interval: "weekly"
+      day: "saturday"{% endif %}

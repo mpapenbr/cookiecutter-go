@@ -1,0 +1,19 @@
+name: Release Drafter
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - {{ cookiecutter.base_branch.strip() }}
+    types: [ closed ]
+
+jobs:
+  release-drafter:
+    runs-on: ubuntu-latest
+    steps:
+      # Drafts release notes as Pull Requests are merged into "master"
+      - uses: release-drafter/release-drafter@v5
+        env:
+{%- raw %}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+{%- endraw %}

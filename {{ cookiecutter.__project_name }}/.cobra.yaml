@@ -1,0 +1,3 @@
+author: "{{ cookiecutter.license_owner }}"
+license: "{{ cookiecutter.license }}"
+useViper: true

@@ -1,0 +1,24 @@
+{
+    "project_name": "example-project",
+    "__project_name": "{{ cookiecutter.project_name|trim|replace(' ','-') }}",
+    "project_description": "{{ ''.join(cookiecutter.__project_name.replace('-', ' ').replace('_', ' ').title().split()) }} sample description",
+    "go_module_path": "github.com/example/{{ cookiecutter.project_name|trim|replace(' ', '-') }}",
+    "license_owner": "example",
+    "base_branch": "master",
+    "contact_email": "",
+    "github_specific_features": "y",
+    "use_codecov": "y",
+    "use_precommit": "y",
+    "use_devcontainer": "y",
+    "use_cobra": "y",
+    "go_version": [
+        "1.20",
+        "1.19"
+    ],
+    "license": [
+        "MIT",
+        "BSD-3",
+        "GPL v3.0",
+        "Apache Software License 2.0"
+    ]
+}
