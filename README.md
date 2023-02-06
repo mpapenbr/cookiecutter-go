@@ -1,84 +1,4 @@
-## go-template
-
-<div align="center">
-
-![A gif displaying `go-template` in action][demo-gif]
-[![Build status](https://img.shields.io/github/workflow/status/notsatan/go-template/Black?style=for-the-badge&logo=github)][black-action]
-[![No Dependencies](https://img.shields.io/badge/Dependencies-None-green?style=for-the-badge&logo=dependabot)][gomod-file]
-[![MIT License](https://img.shields.io/github/license/notsatan/go-template?color=red&style=for-the-badge)][project-license]
-[![Pre-Commit Enabled](https://img.shields.io/badge/Pre--Commit-Enabled-blue?style=for-the-badge&logo=pre-commit)][project-precommit]
-[![Go v1.16+](https://img.shields.io/badge/Go-%20v1.16-black?style=for-the-badge&logo=go)][go-releases]
-[![Makefile Included](https://img.shields.io/badge/Makefile-Supported%20🚀-red?style=for-the-badge&logo=probot)][makefile-file]
-
-A bleeding-edge Go project generator for your next project :wink:
-
-</div>
-
-## TL;DR
-
-```
-cookiecutter gh:notsatan/go-template
-```
-
-**_OR_**
-
-```
-cookiecutter https://github.com/notsatan/go-template
-```
-
-And you're good to go! Jump to the [setup](#microscope-setup-instructions) section
-directly for quick setup instructions ;)
-
-## :boom: Features
-
-This is a battries-included [cookiecutter :cookie:][cookiecutter-link] template to get
-you started with the essentials you'll need for your next Go project ;)
-
-### Development
-
-- Supports Go `v1.16`, `v1.17` and `v1.18`
-- Automated code formatting with [gofmt][gofmt-link] and [gofumpt][gofumpt-link]
-- Sort imports with [goimports][goimports-link] and [gci][gci-link]
-- Ready to use [pre-commit][precommit-link] setup, complete with a ton of hooks
-  already configured in [`.pre-commit-config.yaml`][precommit-config-file]
-- Security checks with [gosec][gosec-link], code duplication checks with
-  [dupl][dupl-link], magic number checks with [go-mnd][gomnd-link]
-- Configured [`.editorconfig`][editorconfig-file], [`.dockerignore`][dockerignore-file]
-  and [`.gitignore`][gitignore-file] - you won't have to bother with trivialities
-- Enforce good programming practices with [go-critic][gocritic-link],
-  [gocyclo][gocyclo-link], [gocognit][gocognit-link] and [stylecheck][stylecheck-link]
-- Code linting with [golangci-lint][golangci-link], complete with a ready-to-run
-  [`.golangci.yml`][golangci-file] configuration file
-- Easy setup with [`Makefile`][makefile-file] - run linters, check for codestyle, run
-  tests and generate coverage reports - all with a single command
-- Multiple test modes supported by the Makefile - allowing you run tests as frequently
-  as you need, without having to run long tests (>20 sec) _everytime_ (ugh).
-
-### Deployment
-
-- Github Actions with predefined [workflows][workflows-dir] including CI/CD, release
-  drafter and _optional_ code coverage with [Codecov][codecov-link]
-- All Github actions can be run manually if needed
-- A simple [Dockerfile][dockerfile-file] with [multi-stage build][multistage-builds]
-  to containerize your apps while ensuring smallest possible image sizes
-- Always up-to-date dependencies with [@Dependabot][dependabot-link] - enabled by
-  default, remove [`dependabot.yml`][dependabot-config-file] to disable!
-- A simple [shell script][build-script-file] to generate compiled binaries for
-  multiple OS/architectures with checksums for verification
-- Automated release management with [Release Drafter][release-drafter], pre-configured
-  to handle the default Github labels (and more) through
-  [`release-drafter.yml`][release-drafter-file]
-
-### Community
-
-- Ready to use [pull request][pr-template] and [issue][issue-templates] templates out
-  of the box
-- Files such as `LICENSE`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, and `SECURITY.md`
-  will be generated automatically.
-- [Semantic Versions][semver-link] specifications with [`Release Drafter`][release-drafter]
-- Fork friendly - projects generated through _go-template_ use relative links. Forks
-  link to themselves instead of your project -- even for _soft forks_, ensuring
-  there are no confused users!
+## cookiecutter-go
 
 ## :microscope: Setup Instructions
 
@@ -96,13 +16,13 @@ Once you have cookiecutter installed, move over to the directory where you want 
 generate your project and run
 
 ```sh
-cookiecutter gh:notsatan/go-template
+cookiecutter gh:mpapenbr/cookiecutter-go
 ```
 
 Alternatively, you can achieve the same results with the command
 
 ```sh
-cookiecutter https://github.com/notsatan/go-template/
+cookiecutter https://github.com/mpapenbr/cookiecutter-go
 ```
 
 ### Input Variables
@@ -122,15 +42,18 @@ values, and what they are used for
 | -------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `project_name`             | `example-project`       | Name of the project. A directory of this name will be created in the current working directory                                                                                                 |
 | `project_description`      | Based on `project_name` | A small description of the project, used to generate `GNU` license file, and default readme                                                                                                    |
+| `github_username`          | github_username         | used in go_module_path                                                                                                                                                                         |
 | `go_module_path`           | Based on `project_name` | Complete Go module path for the generated project, use a valid Github URL to enable Github specific features                                                                                   |
 | `license_owner`            | example                 | Used in `LICENSE` and other files. Can be the name of a person or an organization.                                                                                                             |
-| `base_branch`              | `master`                | The stable/base branch. Used for build status badges and release-drafter (if you enable Github specific features)                                                                              |
+| `base_branch`              | `main`                  | The stable/base branch. Used for build status badges and release-drafter (if you enable Github specific features)                                                                              |
 | `contact_email`            | `""`                    | Email to get in touch with project stakeholders. `CODE_OF_CONDUCT.md` and `SECURITY.md` will be removed if empty. [Why is this needed?](#why-is-my-email-id-needed)                            |
 | `github_specific_features` | **y**                   | Yes or No (`y` or `n`). Dictates if Github-specific features should be included in the project (issue templates, pipeline, etc). [More Info](#what-does-the-github_specific_features-field-do) |
 | `use_codecov`              | **y**                   | Yes or No (`y` or `n`). Decides if [Codecov](http://codecov.com) is to be used in the project or not. Checkout [Setting up codecov](#how-to-integrate-codecov-for-automated-code-analysis)     |
 | `use_precommit`            | **y**                   | Yes or No (`y` or `n`). Decides if [_pre-commit_](https://pre-commit.com) configs should be included with the generated templates                                                              |
-| `go_version`               | `1.17`                  | The version of Go to use in the project. Can be either `1.16`, `1.17` or `1.18`                                                                                                                |
-| `license`                  | `MIT`                   | The license you want to use in the generated project. One of `MIT`, `BSD-3`, `GNU GPL v3.0` and `Apache Software License 2.0`                                                                  |
+| `use_devcontainer`         | **y**                   | Yes or No (`y` or `n`). Decides if a [Devcontainer] config files should be created and configured                                                                                              |
+| `use_cobra`                | **y**                   | Yes or No (`y` or `n`). If set to `y` the project will be setup to create a CLI app using [Cobra] and [Viper]                                                                                  |
+| `go_version`               | `1.19`                  | The version of Go to use in the project. Can be either `1.19`, `1.20`                                                                                                                          |
+| `license`                  | `MIT`                   | The license you want to use in the generated project. One of `MIT`, `BSD-3`, `GPL v3.0` and `Apache Software License 2.0`                                                                      |
 
 All values entered while setting up the Cookiecutter template will be saved in
 `cookiecutter-config-file.yml`, you can refer to them in the generated project :wink:
@@ -281,48 +204,13 @@ To fix this, once the project is generated, simply edit the
 [`dependabot.yml`][dependabot-config-file] file and modify the values under
 `reviewers` and `assignees`.
 
-## :heavy_check_mark: TODOs
-
-Stuff that's in the plan - contributions are welcome! Please raise an issue **before**
-you start working (especially if you're picking up one of these tasks);
-
-- [ ] Integrating [goreleaser][goreleaser-link] - Automated releases sure sounds cool!
-- [ ] Minor improvements to [`.golangci.yml`][golangci-file] - The generated file
-      should be enough to give users (developers) a rough idea of configs.
-- [ ] Possible integration with [mkdocs-material][mkdocs-link] for projects that need
-      a documentation. Should definitely be optional though!
-- [ ] Add [Earthly][earthly-link]? Not sure if this is needed in the first place.
-- [ ] Customize [build-script.sh][build-script-file] to generate binaries/executables
-      for selective OSes
-- [ ] Option to generate private projects - Shield badges and _<more stuff>_ need the
-      project to be public. It would be great to have an option to generate private
-      projects using _go-template_!
-
 ## :trophy: Acknowledgements
 
-The main inspiration behind this template was `TezRomacH`'s
-[python-package-template][python-template] — which I've greatly enjoyed using at one
-point of time.
+The main inspiration behind this template are the existing cookiecutter templates [go-template] and [cookiecutter-golang].
+Most of this template is based on [go-template]. Some aspects have been changed here, other features like devcontainer were added.
 
-The lack of any similar templates for Go was a large part of why I decided to _Go ahead_
-and make one myself. And of course, huge appreciation for [Cookiecutter][cookiecutter-link],
+And of course, huge appreciation for [Cookiecutter][cookiecutter-link],
 without which such a flexible template would not be possible.
-
-## :2nd_place_medal: Similar Projects
-
-Other similar project(s) that you might want to check out;
-
-- [cookiecutter-golang](https://github.com/lacion/cookiecutter-golang)
-- [go-template-edge](https://github.com/enoti-bg/go-template-edge)
-- [go-cli](https://github.com/carlmjohnson/go-cli)
-
-P.S. If you know of any project similar to _go-template_ (that isn't listed here), let
-me know and I'll be happy to list it ;)
-
-Forks of _go-template_ are welcome as well - given they have significant changes
-compared to upstream!
-
-> P.P.S. The emoji for this section fits well :p
 
 ## :shield: License
 
@@ -385,3 +273,8 @@ for more details.
 [release-drafter-file]: ./%7B%7B%20cookiecutter.__project_name%20%7D%7D/.github/release-drafter.yml
 [demo-gif]: https://user-images.githubusercontent.com/22884507/177801711-63b49b09-fa68-4db3-b543-69aed73e0f13.gif
 [creating-secrets]: https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository
+[go-template]: https://github.com/notsatan/go-template
+[cookiecutter-golang]: https://github.com/lacion/cookiecutter-golang
+[devcontainer]: https://code.visualstudio.com/docs/devcontainers/containers
+[cobra]: https://github.com/spf13/cobra
+[viper]: https://github.com/spf13/viper

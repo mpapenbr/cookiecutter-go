@@ -1,10 +1,11 @@
 {
-    "project_name": "example-project",
+    "project_name": "sample-project",
     "__project_name": "{{ cookiecutter.project_name|trim|replace(' ','-') }}",
     "project_description": "{{ ''.join(cookiecutter.__project_name.replace('-', ' ').replace('_', ' ').title().split()) }} sample description",
-    "go_module_path": "github.com/example/{{ cookiecutter.project_name|trim|replace(' ', '-') }}",
+    "github_username": "github_user",
+    "go_module_path": "github.com/{{cookiecutter.github_username}}/{{ cookiecutter.project_name|trim|replace(' ', '-') }}",
     "license_owner": "example",
-    "base_branch": "master",
+    "base_branch": "main",
     "contact_email": "",
     "github_specific_features": "y",
     "use_codecov": "y",
@@ -12,8 +13,8 @@
     "use_devcontainer": "y",
     "use_cobra": "y",
     "go_version": [
-        "1.20",
-        "1.19"
+        "1.19",
+        "1.20"
     ],
     "license": [
         "MIT",
