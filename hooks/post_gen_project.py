@@ -150,11 +150,11 @@ def remove_standard_app():
 
         os.remove(deletable_file)
 
-    dest_path: str = os.path.join(CUR_DIR, "app")
-    if not os.path.exists(dest_path):
-        return False  # The directory to delete does not exist
+    # dest_path: str = os.path.join(CUR_DIR, "app")
+    # if not os.path.exists(dest_path):
+    #     return False  # The directory to delete does not exist
 
-    shutil.rmtree(dest_path, ignore_errors=True)
+    # shutil.rmtree(dest_path, ignore_errors=True)
 
 
 def check_email_provided():

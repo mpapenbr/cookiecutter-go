@@ -52,6 +52,7 @@ pre-commit:
 local-setup:
 	echo "  >  Ensuring directory is a git repository"
 	git init &> /dev/null
+	
 	{% if cookiecutter.use_cobra.lower() == 'y' -%}
 	echo "  >  Create Cobra CLI frame"
 	cobra-cli --config .cobra.yaml init

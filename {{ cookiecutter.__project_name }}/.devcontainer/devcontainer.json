@@ -3,7 +3,9 @@
 {
 	"name": "Go",
 
-	"image": "mcr.microsoft.com/devcontainers/go:{{ cookiecutter.go_version }}-bullseye",
+	"image": "mcr.microsoft.com/devcontainers/go:{{ cookiecutter.go_version }}",
+	// alternative: use the bullseye image
+	// "image": "mcr.microsoft.com/devcontainers/go:{{ cookiecutter.go_version }}-bullseye",
 	"runArgs": [
 		"--cap-add=SYS_PTRACE",
 		"--security-opt",
@@ -23,7 +25,8 @@
 		"golang.Go",
 		"eamodio.gitlens",
 		"esbenp.prettier-vscode",
-		"github.vscode-pull-request-github"
+		"github.vscode-pull-request-github",
+		"EditorConfig.EditorConfig"
 	],
 
 	"containerEnv": {

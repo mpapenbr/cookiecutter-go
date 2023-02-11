@@ -13,8 +13,8 @@
     "use_devcontainer": "y",
     "use_cobra": "y",
     "go_version": [
-        "1.19",
-        "1.20"
+        "1.20",
+        "1.19"
     ],
     "license": [
         "MIT",
