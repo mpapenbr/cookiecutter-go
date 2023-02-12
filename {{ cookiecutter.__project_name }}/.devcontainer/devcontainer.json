@@ -26,7 +26,8 @@
 		"eamodio.gitlens",
 		"esbenp.prettier-vscode",
 		"github.vscode-pull-request-github",
-		"EditorConfig.EditorConfig"
+		"EditorConfig.EditorConfig",
+		"cschleiden.vscode-github-actions"
 	],
 
 	"containerEnv": {

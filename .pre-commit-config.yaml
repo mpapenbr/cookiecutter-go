@@ -8,6 +8,7 @@ repos:
     hooks:
       # Verify syntax
       - id: check-yaml
+        exclude: "{{ cookiecutter.__project_name }}/"
       - id: check-json
         exclude: .devcontainer/
       - id: check-xml

@@ -367,8 +367,9 @@ The remaining labels can be created as needed!
 
 <div align="center"><br>
 
-`{{ cookiecutter.__project_name }}` is powered by a template generated using [`go-template`][go-template-link]
+`{{ cookiecutter.__project_name }}` is powered by a template generated using [`cookiecutter-go`][cookiecutter-go-link] which is based on [`go-template`][go-template-link]
 
+[![cookiecutter-go-link](https://img.shields.io/badge/cookiecutter--go-black?style=for-the-badge&logo=go)][cookiecutter-go-link]
 [![go-template](https://img.shields.io/badge/go--template-black?style=for-the-badge&logo=go)][go-template-link]
 
 </div>
@@ -397,5 +398,6 @@ The remaining labels can be created as needed!
 [go-template-link]: https://github.com/notsatan/go-template
 [golangci-install]: https://golangci-lint.run/usage/install
 [cookiecutter-link]: https://github.com/cookiecutter/cookiecutter
+[cookiecutter-go-link]: https://github.com/mpapenbr/cookiecutter-go
 [release-drafter]: https://github.com/marketplace/actions/release-drafter
 [creating-secrets]: https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository
