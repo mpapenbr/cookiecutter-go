@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "devinit.sh called" 
+echo "devinit.sh called"
 
 {% if cookiecutter.use_cobra.lower() == 'y' -%}
 go install github.com/spf13/cobra-cli@latest

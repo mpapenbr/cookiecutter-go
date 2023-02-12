@@ -52,7 +52,7 @@ pre-commit:
 local-setup:
 	echo "  >  Ensuring directory is a git repository"
 	git init &> /dev/null
-	
+
 	{% if cookiecutter.use_cobra.lower() == 'y' -%}
 	echo "  >  Create Cobra CLI frame"
 	cobra-cli --config .cobra.yaml init
@@ -60,6 +60,8 @@ local-setup:
 	{% if cookiecutter.use_precommit.lower() == 'y' and cookiecutter.use_devcontainer.lower() != 'y' -%}
 	echo "  >  Installing pre-commit"
 	pip install --upgrade pre-commit &> /dev/null
+	{%- endif +%}
+	{% if cookiecutter.use_precommit.lower() == 'y' -%}
 	pre-commit install
 	{%- endif +%}
 

@@ -19,5 +19,3 @@ coverage/**
 # Ignore private dotfiles
 .gitconfig.local*
 .npmrc
-
-
