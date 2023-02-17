@@ -6,12 +6,15 @@ import (
 )
 
 // GitCommit returns the git commit that was compiled. This will be filled in by the compiler.
+// Note: will be replaced by goreleaser
 var GitCommit string
 
 // Version returns the main version number that is being run at the moment.
-const Version = "0.1.0"
+// Note: will be replaced by goreleaser
+var Version = "0.0.0-DEV"
 
 // BuildDate returns the date the binary was built
+// Note: will be replaced by goreleaser
 var BuildDate = ""
 
 // GoVersion returns the version of the go runtime used to compile the binary

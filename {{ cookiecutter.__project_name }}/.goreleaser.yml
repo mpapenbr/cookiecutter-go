@@ -15,26 +15,26 @@ builds:
       - darwin
     ignore:
       - goos: darwin
-        goarch: 386
+        goarch: "386"
       - goos: windows
         goarch: arm64
     ldflags:
-      - -s -w -X {{ .ProjectName }}/cmd.Version={{.Version}}
+      - -s -w -X {{ .ModulePath }}/version.Version={{ .Version }} -X {{ .ModulePath }}/version.BuildDate={{ .Date }} -X {{ .ModulePath }}/version.GitCommit={{ .ShortCommit }}
 archives:
-  - name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
-    replacements:
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
+  - name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
     format_overrides:
       - goos: windows
         format: zip
 
 dockers:
   - image_templates:
-      - "ghcr.io/mpapenbr/{{ .ProjectName }}:{{ .Tag }}"
+      - "ghcr.io/{{ cookiecutter.github_username }}/{{ .ProjectName }}:{{ .Tag }}"
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -44,9 +44,9 @@ dockers:
       - "--platform=linux/amd64"
 
 docker_manifests:
-  - name_template: "ghcr.io/mpapenbr/{{ .ProjectName }}:{{ .Tag }}"
+  - name_template: "ghcr.io/{{ cookiecutter.github_username }}/{{ .ProjectName }}:{{ .Tag }}"
     image_templates:
-      - "ghcr.io/mpapenbr/{{ .ProjectName }}:{{ .Tag }}"
+      - "ghcr.io/{{ cookiecutter.github_username }}/{{ .ProjectName }}:{{ .Tag }}"
 
 checksum:
   name_template: "checksums.txt"
