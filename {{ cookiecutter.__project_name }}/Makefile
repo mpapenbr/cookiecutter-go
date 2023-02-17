@@ -53,10 +53,6 @@ local-setup:
 	echo "  >  Ensuring directory is a git repository"
 	git init &> /dev/null
 
-	{% if cookiecutter.use_cobra.lower() == 'y' -%}
-	echo "  >  Create Cobra CLI frame"
-	cobra-cli --config .cobra.yaml init
-	{%- endif +%}
 	{% if cookiecutter.use_precommit.lower() == 'y' and cookiecutter.use_devcontainer.lower() != 'y' -%}
 	echo "  >  Installing pre-commit"
 	pip install --upgrade pre-commit &> /dev/null
@@ -138,47 +134,9 @@ run-debug: export __BUILD_MODE__=debug
 run-debug:
 	go run main.go $(q)
 
-
-.PHONY: docker-gen
-## :
-## `docker-gen`: Create a production docker image for `{{ cookiecutter.__project_name }}`
-docker-gen:
-	echo "Building docker image \`$(IMAGE):$(VERSION)\`..."
-	docker build --rm \
-		--build-arg final_image=scratch \
-		--build-arg build_mode=production \
-		-t $(IMAGE):$(VERSION) . \
-		-f ./docker/Dockerfile
-
-
-.PHONY: docker-debug
-## `docker-debug`: Create debug-friendly docker images for `{{ cookiecutter.__project_name }}`
-docker-debug:
-	echo "Building docker image \`$(IMAGE):$(VERSION)\`..."
-	docker build --rm=false \
-		--build-arg final_image=golang:{{ cookiecutter.go_version }} \
-		--build-arg build_mode=debug \
-		-t $(IMAGE)-debug:$(VERSION) . \
-		-f ./docker/Dockerfile
-
-
-.PHONY: clean-docker
-## `clean-docker`: Delete an existing docker image
-clean-docker:
-	echo "Removing docker $(IMAGE):$(VERSION)..."
-	docker rmi -f $(IMAGE):$(VERSION)
-
-
-## :
-##  NOTE: All docker-related commands can use `IMAGE`
-## : and `VERSION` variables to modify the docker
-## : image being targeted
-## :
-## : Example;
-## :     make docker-gen IMAGE=new_project VERSION=3.15
-## :
-## : Likewise, both the `run` commands can pass runtime
-## : arguments under the `q` arg
-## :
-## : Example;
-## :	`make run q="time --version"`
+.PHONY: release-tag
+## `release-tag`: Create a tag to trigger a release. Example: make release v=v0.1.0
+release-tag:
+	echo "Creating release $(v)"
+	git tag -a  $(v) -m "Release $(v)"
+	git push origin $(v)

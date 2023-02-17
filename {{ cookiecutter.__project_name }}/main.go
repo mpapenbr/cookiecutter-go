@@ -1,9 +1,7 @@
 package main
 
-import (
-	"{{ cookiecutter.go_module_path.strip('/') }}/app"
-)
+import "{{ cookiecutter.go_module_path }}.strip('/')/cmd"
 
 func main() {
-	fmt.Printf("Running project: `%s`\n", app.ProjectName())
+	cmd.Execute()
 }

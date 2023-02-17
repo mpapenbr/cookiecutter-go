@@ -132,31 +132,6 @@ def remove_devcontainer():
     shutil.rmtree(dest_path, ignore_errors=True)
 
 
-def remove_standard_app():
-    """
-    If a CLI app using cobra is requested, remove the app dir and main*.go files.
-    cobra-cli will setup a frame instead.
-    """
-
-    use_cobra: bool = bool("{{ cookiecutter.use_cobra }}".lower() == "y")
-    if not use_cobra:
-        return
-
-    files: List[str] = ["main.go", "main_test.go"]
-    for f in files:
-        deletable_file = os.path.join(CUR_DIR, f)
-        if not os.path.exists(path=deletable_file):
-            continue
-
-        os.remove(deletable_file)
-
-    # dest_path: str = os.path.join(CUR_DIR, "app")
-    # if not os.path.exists(dest_path):
-    #     return False  # The directory to delete does not exist
-
-    # shutil.rmtree(dest_path, ignore_errors=True)
-
-
 def check_email_provided():
     """
     Checks if the user has provided an email while generating the template
@@ -228,7 +203,6 @@ runners: Callable[[Optional[Any]], None] = [
     remove_precommit,
     check_email_provided,
     remove_devcontainer,
-    remove_standard_app,
     print_final_instructions,
 ]
 
