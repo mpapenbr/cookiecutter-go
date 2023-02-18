@@ -1,15 +1,22 @@
+/*
+Copyright {% now 'utc', '%Y' %} {{ cookiecutter.license_owner }}
+*/
+
 package cmd
 
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 
-	"{{ cookiecutter.go_module_path }}.strip('/')/version"
+	"{{ cookiecutter.go_module_path.strip('/') }}/version"
 )
 
+const envPrefix = "{{ cookiecutter.__project_name }}"
 var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
@@ -40,7 +47,7 @@ func init() {
 	// will be global for your application.
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "",
-		"config file (default is $HOME/.{{ cookiecutter.__project_name }}.yaml)")
+		"config file (default is $HOME/.{{ cookiecutter.__project_name }}.yml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -68,5 +75,31 @@ func initConfig() {
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+		bindFlags(rootCmd, viper.GetViper())
 	}
+}
+
+
+// Bind each cobra flag to its associated viper configuration
+// (config file and environment variable)
+func bindFlags(cmd *cobra.Command, v *viper.Viper) {
+	cmd.Flags().VisitAll(func(f *pflag.Flag) {
+		// Environment variables can't have dashes in them, so bind them to their
+		/ equivalent keys with underscores, e.g. --favorite-color to STING_FAVORITE_COLOR
+		if strings.Contains(f.Name, "-") {
+			envVarSuffix := strings.ToUpper(strings.ReplaceAll(f.Name, "-", "_"))
+			if err := v.BindEnv(f.Name,
+				fmt.Sprintf("%s_%s", envPrefix, envVarSuffix)); err != nil {
+				fmt.Fprintf(os.Stderr, "Could not bind env var %s: %v", f.Name, err)
+			}
+		}
+		// Apply the viper config value to the flag when the flag is not set and viper
+		// has a value
+		if !f.Changed && v.IsSet(f.Name) {
+			val := v.Get(f.Name)
+			if err := cmd.Flags().Set(f.Name, fmt.Sprintf("%v", val)); err != nil {
+				fmt.Fprintf(os.Stderr, "Could set flag value for %s: %v", f.Name, err)
+			}
+		}
+	})
 }

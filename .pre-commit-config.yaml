@@ -28,7 +28,7 @@ repos:
       # Pretty format JSON files implicitly
       - id: pretty-format-json
         exclude: .devcontainer/
-        args: ["--autofix"]
+        args: ["--autofix", "--no-sort-keys"]
 
       # Debatable -- for most projects adding files larger than 10 MB is likely to be
       # a mistake instead of a requirement. Remove this if needed

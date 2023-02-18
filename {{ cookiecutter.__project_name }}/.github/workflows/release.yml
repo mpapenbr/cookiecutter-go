@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version: "{{ cookiecutter.go_version }}"
-
+{%+ raw %}
       - name: Login to Github Container Registry
         uses: docker/login-action@v2
         with:
@@ -39,6 +39,7 @@ jobs:
           args: release --release-notes=/tmp/CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+{% endraw %}
         # Note: The standard setting for the repository doesn't allow the default GITHUB_TOKEN to be used here
-        # Either define a seperate Personal Access Token or permit the default GITHUB_TOKEN read/write access
+        # Either define a separate Personal Access Token or permit the default GITHUB_TOKEN read/write access
         # see section "Workflow permissions" on https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.__project_name }}/settings/actions

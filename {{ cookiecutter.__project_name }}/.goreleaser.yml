@@ -19,7 +19,10 @@ builds:
       - goos: windows
         goarch: arm64
     ldflags:
+      {%- raw %}
       - -s -w -X {{ .ModulePath }}/version.Version={{ .Version }} -X {{ .ModulePath }}/version.BuildDate={{ .Date }} -X {{ .ModulePath }}/version.GitCommit={{ .ShortCommit }}
+      {%- endraw %}
+{% raw %}
 archives:
   - name_template: >-
       {{ .ProjectName }}_
@@ -31,10 +34,11 @@ archives:
     format_overrides:
       - goos: windows
         format: zip
-
+{% endraw %}
 dockers:
   - image_templates:
-      - "ghcr.io/{{ cookiecutter.github_username }}/{{ .ProjectName }}:{{ .Tag }}"
+      - "ghcr.io/{{ cookiecutter.github_username }}/{% raw %}{{ .ProjectName }}:{{ .Tag }}{% endraw %}"
+{% raw %}
     build_flag_templates:
       - "--pull"
       - "--label=org.opencontainers.image.created={{.Date}}"
@@ -42,16 +46,17 @@ dockers:
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
       - "--platform=linux/amd64"
-
+{% endraw %}
 docker_manifests:
-  - name_template: "ghcr.io/{{ cookiecutter.github_username }}/{{ .ProjectName }}:{{ .Tag }}"
+  - name_template: "ghcr.io/{{ cookiecutter.github_username }}/{% raw %}{{ .ProjectName }}:{{ .Tag }}{% endraw %}"
     image_templates:
-      - "ghcr.io/{{ cookiecutter.github_username }}/{{ .ProjectName }}:{{ .Tag }}"
-
+      - "ghcr.io/{{ cookiecutter.github_username }}/{% raw %}{{ .ProjectName }}:{{ .Tag }}{% endraw %}"
+{% raw %}
 checksum:
   name_template: "checksums.txt"
 snapshot:
   name_template: "{{ incpatch .Version }}-next"
+{% endraw %}
 changelog:
   sort: asc
   use: github

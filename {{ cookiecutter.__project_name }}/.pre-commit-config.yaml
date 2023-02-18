@@ -4,7 +4,7 @@ minimum_pre_commit_version: 2.15.0
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.4.0
     hooks:
       # Verify syntax
       - id: check-yaml
@@ -27,7 +27,7 @@ repos:
       # Pretty format JSON files implicitly
       - id: pretty-format-json
         exclude: .devcontainer/
-        args: ["--autofix"]
+        args: ["--autofixx", "--no-sort-keys"]
 
       # Debatable -- for most projects adding files larger than 10 MB is likely to be
       # a mistake instead of a requirement. Remove this if needed

@@ -1,7 +1,7 @@
 ---
 name: 🐛 Bug Report
 about: Something isn't working as expected
-title: 'Bug: '
+title: "Bug: "
 labels: bug
 assignees:
 ---
@@ -25,7 +25,7 @@ assignees:
 <!-- Output of `go version` - replace the second line with your output -->
 <pre>
 $ go version
-go version go1.17.1 linux/amd64
+go version go1.20.1 linux/amd64
 </pre>
 
 ### Go Env

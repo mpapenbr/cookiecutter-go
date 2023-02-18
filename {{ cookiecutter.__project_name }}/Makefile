@@ -52,8 +52,7 @@ pre-commit:
 local-setup:
 	echo "  >  Ensuring directory is a git repository"
 	git init &> /dev/null
-
-	{% if cookiecutter.use_precommit.lower() == 'y' and cookiecutter.use_devcontainer.lower() != 'y' -%}
+	{%- if cookiecutter.use_precommit.lower() == 'y' and cookiecutter.use_devcontainer.lower() != 'y' -%}
 	echo "  >  Installing pre-commit"
 	pip install --upgrade pre-commit &> /dev/null
 	{%- endif +%}
@@ -135,8 +134,8 @@ run-debug:
 	go run main.go $(q)
 
 .PHONY: release-tag
-## `release-tag`: Create a tag to trigger a release. Example: make release v=v0.1.0
+## `release-tag`: Create a tag to trigger a release. (`make release-tag v=v0.1.0` for example)
 release-tag:
-	echo "Creating release $(v)"
+	echo "  >  Creating release $(v)"
 	git tag -a  $(v) -m "Release $(v)"
 	git push origin $(v)
