@@ -407,3 +407,4 @@ The remaining labels can be created as needed!
 [cookiecutter-go-link]: https://github.com/mpapenbr/cookiecutter-go
 [release-drafter]: https://github.com/marketplace/actions/release-drafter
 [creating-secrets]: https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository
+[linting-golang]: https://freshman.tech/linting-golang/
