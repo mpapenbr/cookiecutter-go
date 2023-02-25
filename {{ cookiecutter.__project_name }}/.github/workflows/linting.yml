@@ -17,19 +17,28 @@ jobs:
     - uses: actions/setup-python@v4
       with:
         python-version: '3.x' # Version range or exact version to use
-    - uses: pre-commit/action@v3.0.0{% endraw %}
+    - uses: pre-commit/action@v3.0.0
+  {% endraw %}
 
   golangci-lint:
     strategy:
       matrix:
         go-version: [ {{ cookiecutter.go_version }}.x ]
         os: [ ubuntu-latest ]
-{% raw %}
+
+    {% raw -%}
     runs-on: ${{ matrix.os }}
-{% endraw %}
+    {% endraw %}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          {% raw -%}
+          go-version: ${{ matrix.go-version }}
+          {% endraw %}
 
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
