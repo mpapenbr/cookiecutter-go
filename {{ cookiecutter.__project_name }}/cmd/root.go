@@ -80,10 +80,11 @@ func initConfig() {
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
-		bindFlags(rootCmd, viper.GetViper())
-		for _, cmd := range rootCmd.Commands() {
-			bindFlags(cmd, viper.GetViper())
-		}
+	}
+
+	bindFlags(rootCmd, viper.GetViper())
+	for _, cmd := range rootCmd.Commands() {
+		bindFlags(cmd, viper.GetViper())
 	}
 }
 
@@ -93,7 +94,7 @@ func initConfig() {
 func bindFlags(cmd *cobra.Command, v *viper.Viper) {
 	cmd.Flags().VisitAll(func(f *pflag.Flag) {
 		// Environment variables can't have dashes in them, so bind them to their
-		/ equivalent keys with underscores, e.g. --favorite-color to STING_FAVORITE_COLOR
+		// equivalent keys with underscores, e.g. --favorite-color to STING_FAVORITE_COLOR
 		if strings.Contains(f.Name, "-") {
 			envVarSuffix := strings.ToUpper(strings.ReplaceAll(f.Name, "-", "_"))
 			if err := v.BindEnv(f.Name,
