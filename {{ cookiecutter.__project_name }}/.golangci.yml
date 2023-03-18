@@ -495,7 +495,7 @@ linters:
     - gofumpt
     - funlen
     - goimports
-    - gomnd
+    # - gomnd # very noisy
     - goprintffuncname
     - gosec
     - ifshort
@@ -509,14 +509,14 @@ linters:
     - nolintlint
     - predeclared
     - revive
-    - stylecheck
+    # - stylecheck # very noisy
     - tagliatelle
     - thelper
     - unconvert
     - unparam
     - wastedassign
     - whitespace
-    - wrapcheck
+    # - wrapcheck # very noisy
 
   # Interesting linters - enable if they fit your needs
   # - maintidx
