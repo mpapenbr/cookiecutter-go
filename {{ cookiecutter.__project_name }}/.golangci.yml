@@ -281,8 +281,8 @@ linters-settings:
     #   - atomicalign
     enable-all: true
 
-    # disable:
-    #   - shadow
+    disable:
+      - fieldalignment
     disable-all: false
 
   depguard:
