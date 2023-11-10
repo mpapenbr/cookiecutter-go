@@ -14,4 +14,19 @@ updates:
     # Check for updates to dependencies once a week - Saturday
     schedule:
       interval: "weekly"
-      day: "saturday"{% endif %}
+      day: "saturday"
+
+  - package-ecosystem: github-actions
+    directory: /
+    labels:
+      - developer
+      - build
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        dependency-type: "production"
+    commit-message:
+      prefix: "gha"
+      include: "scope"
+{% endif %}
