@@ -25,10 +25,10 @@
 			  "formatting.gofumpt": true
 			},
 			"[go]": {
-			  "editor.rulers": [90]
-			},
-			"editor.defaultFormatter": "golang.go",
-			"editor.formatOnSave": true
+			  "editor.rulers": [90],
+			  "editor.defaultFormatter": "golang.go",
+			  "editor.formatOnSave": true
+			}
 		  },
 		  // Add the IDs of extensions you want installed when the container is created.
 		  "extensions": [

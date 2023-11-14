@@ -19,7 +19,6 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     labels:
-      - developer
       - build
     schedule:
       interval: "weekly"
