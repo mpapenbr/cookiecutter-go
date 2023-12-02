@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
+      packages: write
     steps:
       - uses: actions/checkout@v4
 
@@ -44,5 +44,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 {% endraw %}
         # Note: The standard setting for the repository doesn't allow the default GITHUB_TOKEN to be used here
-        # Either define a separate Personal Access Token or permit the default GITHUB_TOKEN read/write access
-        # see section "Workflow permissions" on https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.__project_name }}/settings/actions
+        # You have the following options:
+        # - define the required permission in this job (see above)
+        # - define a separate Personal Access Token
+        # - or permit the default GITHUB_TOKEN read/write access
+        #   see section "Workflow permissions" on https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.__project_name }}/settings/actions
