@@ -41,12 +41,18 @@ dockers:
 {% raw %}
     build_flag_templates:
       - "--pull"
+      - "--platform=linux/amd64"
       - "--label=org.opencontainers.image.created={{.Date}}"
       - "--label=org.opencontainers.image.title={{.ProjectName}}"
       - "--label=org.opencontainers.image.revision={{.FullCommit}}"
       - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--platform=linux/amd64"
+      - "--label=org.opencontainers.image.source=https://{{.ModulePath}}"
+      - "--label=org.opencontainers.image.url=https://{{.ModulePath}}"
 {% endraw %}
+      - "--label=description={{ cookiecutter.project_description }}"
+      - "--label=maintainer={{ cookiecutter.licence_owner }}"
+      - "--label=org.opencontainers.image.description={{ cookiecutter.project_description }}"
+      - "--label=org.opencontainers.image.licenses={{ cookiecutter.license }}"
 docker_manifests:
   - name_template: "ghcr.io/{{ cookiecutter.github_username }}/{% raw %}{{ .ProjectName }}:{{ .Tag }}{% endraw %}"
     image_templates:
