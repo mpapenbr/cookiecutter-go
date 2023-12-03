@@ -50,7 +50,7 @@ dockers:
       - "--label=org.opencontainers.image.url=https://{{.ModulePath}}"
 {% endraw %}
       - "--label=description={{ cookiecutter.project_description }}"
-      - "--label=maintainer={{ cookiecutter.licence_owner }}"
+      - "--label=maintainer={{ cookiecutter.github_username }}"
       - "--label=org.opencontainers.image.description={{ cookiecutter.project_description }}"
       - "--label=org.opencontainers.image.licenses={{ cookiecutter.license }}"
 docker_manifests:
