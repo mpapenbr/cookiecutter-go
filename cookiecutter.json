@@ -12,6 +12,7 @@
   "use_precommit": "y",
   "use_devcontainer": "y",
   "go_version": [
+    "1.22",
     "1.21",
     "1.20"
   ],

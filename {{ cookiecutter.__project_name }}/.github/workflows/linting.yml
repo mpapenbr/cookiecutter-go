@@ -9,7 +9,7 @@ on:
     types: [ opened, reopened ]
 
 jobs:
-  {% raw -%}
+  {% if cookiecutter.use_precommit.lower() == 'y' -%}
   pre-commit:
     runs-on: ubuntu-latest
     steps:
@@ -17,8 +17,8 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.x' # Version range or exact version to use
-    - uses: pre-commit/action@v3.0.0
-  {% endraw %}
+    - uses: pre-commit/action@v3.0.1
+  {%- endif +%}
 
   golangci-lint:
     strategy:
@@ -34,17 +34,17 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           {% raw -%}
           go-version: ${{ matrix.go-version }}
           {% endraw %}
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v4
         with:
           # Must be specified without patch version: we always use the latest patch version.
-          version: v1.55
+          version: v1.56
 
           # Optional: golangci-lint command line arguments.
           # args: --issues-exit-code=0
