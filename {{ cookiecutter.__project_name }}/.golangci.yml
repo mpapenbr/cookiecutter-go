@@ -13,17 +13,12 @@ run:
   issues-exit-code: 1
 
   # include test files or not, default is true
-  tests: true
+  tests:
+    true
 
-  # default is true. Enables skipping of directories:
-  #   vendor$, third_party$, testdata$, examples$, Godeps$, builtin$
-  skip-dirs-use-default: true
-
-  # Allow multiple parallel golangci-lint instances running.
+    # Allow multiple parallel golangci-lint instances running.
   # If false (default) - golangci-lint acquires file lock on start.
   allow-parallel-runners: false
-
-  go: "{{ cookiecutter.go_version }}"
 
 # output configuration options
 output:
