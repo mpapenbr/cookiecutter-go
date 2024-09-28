@@ -3,7 +3,7 @@
 {
 	"name": "Go",
 
-	"image": "mcr.microsoft.com/devcontainers/go:{{ cookiecutter.go_version }}",
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	// alternative: use the bullseye image
 	// "image": "mcr.microsoft.com/devcontainers/go:{{ cookiecutter.go_version }}-bullseye",
 	"runArgs": [
@@ -55,6 +55,9 @@
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
 	"features": {
+		"ghcr.io/devcontainers/features/go": {
+			"version": "{{ cookiecutter.go_version }}"
+		},
 		"ghcr.io/devcontainers/features/docker-in-docker": "latest",
 		{% if cookiecutter.use_precommit.lower() == 'y' -%}
 		"ghcr.io/devcontainers-contrib/features/pre-commit": "latest"
