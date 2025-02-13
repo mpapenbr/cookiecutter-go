@@ -20,6 +20,15 @@ run:
   # If false (default) - golangci-lint acquires file lock on start.
   allow-parallel-runners: false
 
+# issues configuration options
+issues:
+  # Enables exclude of directories:
+  # - vendor$, third_party$, testdata$, examples$, Godeps$, builtin$
+  # Default: true
+  exclude-dirs-use-default: true
+  # make issues output unique by line, default is true
+  uniq-by-line: true
+
 # output configuration options
 output:
   # default is "colored-line-number"
@@ -31,9 +40,6 @@ output:
 
   # print linter name in the end of issue text, default is true
   print-linter-name: true
-
-  # make issues output unique by line, default is true
-  uniq-by-line: true
 
   # add a prefix to the output file references; default is no prefix
   path-prefix: ""
@@ -463,7 +469,7 @@ linters:
     - unused
 
     # Additional
-    - cyclop
+    # - cyclop # too noisy
     # - depguard
     - dogsled
     - dupl
@@ -472,7 +478,7 @@ linters:
     - exhaustive
     - forbidigo
     - gci
-    - gocognit
+    # - gocognit # too noisy
     - goconst
     - gocritic
     - gocyclo
