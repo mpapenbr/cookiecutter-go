@@ -37,6 +37,7 @@
 			"esbenp.prettier-vscode",
 			"github.vscode-pull-request-github",
 			"EditorConfig.EditorConfig",
+			"redhat.vscode-yaml",
 			"cschleiden.vscode-github-actions"
 		  ]
 		}
