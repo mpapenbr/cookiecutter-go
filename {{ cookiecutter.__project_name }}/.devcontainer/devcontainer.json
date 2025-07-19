@@ -61,7 +61,7 @@
 		},
 		"ghcr.io/devcontainers/features/docker-in-docker": "latest",
 		{% if cookiecutter.use_precommit.lower() == 'y' -%}
-		"ghcr.io/devcontainers-contrib/features/pre-commit": "latest"
+		"ghcr.io/devcontainers-extra/features/pre-commit": "latest"
 		{%- endif +%}
 	}
 }
