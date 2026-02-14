@@ -8,7 +8,7 @@ To start using the template, install the latest version of
 [`Cookiecutter`][cookiecutter-docs] (make sure you have Python and `pip` installed)
 
 ```sh
-pip install -U cookiecutter
+apt install cookiecutter
 ```
 
 <br>

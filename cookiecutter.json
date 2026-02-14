@@ -12,8 +12,8 @@
   "use_precommit": "y",
   "use_devcontainer": "y",
   "go_version": [
-    "1.25",
-    "1.24"
+    "1.26",
+    "1.25"
   ],
   "license": [
     "MIT",

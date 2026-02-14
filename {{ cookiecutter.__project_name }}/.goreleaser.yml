@@ -35,29 +35,28 @@ archives:
       - goos: windows
         formats: ["zip"]
 {% endraw %}
-dockers:
-  - image_templates:
-      - "ghcr.io/{{ cookiecutter.github_username }}/{% raw %}{{ .ProjectName }}:{{ .Tag }}{% endraw %}"
+
+dockers_v2:
+  - id: standard
+    images:
+      - "ghcr.io/{{ cookiecutter.github_username }}/{% raw %}{{ .ProjectName }}{% endraw %}"
 {% raw %}
-    build_flag_templates:
-      - "--pull"
-      - "--platform=linux/amd64"
-      - "--label=org.opencontainers.image.created={{.Date}}"
-      - "--label=org.opencontainers.image.title={{.ProjectName}}"
-      - "--label=org.opencontainers.image.revision={{.FullCommit}}"
-      - "--label=org.opencontainers.image.version={{.Version}}"
-      - "--label=org.opencontainers.image.source=https://{{.ModulePath}}"
-      - "--label=org.opencontainers.image.url=https://{{.ModulePath}}"
-{% endraw %}
-      - "--label=description={{ cookiecutter.project_description }}"
-      - "--label=maintainer={{ cookiecutter.github_username }}"
-      - "--label=org.opencontainers.image.description={{ cookiecutter.project_description }}"
-      - "--label=org.opencontainers.image.licenses={{ cookiecutter.license }}"
-docker_manifests:
-  - name_template: "ghcr.io/{{ cookiecutter.github_username }}/{% raw %}{{ .ProjectName }}:{{ .Tag }}{% endraw %}"
-    image_templates:
-      - "ghcr.io/{{ cookiecutter.github_username }}/{% raw %}{{ .ProjectName }}:{{ .Tag }}{% endraw %}"
-{% raw %}
+    labels:
+      org.opencontainers.image.created: "{{ .Date }}"
+      org.opencontainers.image.title: "{{ .ProjectName }}"
+      org.opencontainers.image.revision: "{{ .FullCommit }}"
+      org.opencontainers.image.version: "{{ .Version }}"
+      org.opencontainers.image.source: "https://{{ .ModulePath }}"
+      org.opencontainers.image.url: "https://{{ .ModulePath }}"
+      org.opencontainers.image.description: "{{ cookiecutter.project_description }}"
+      org.opencontainers.image.licenses: "{{ cookiecutter.license }}"
+      description: "{{ cookiecutter.project_description }}"
+      maintainer: "{{ cookiecutter.github_username }}"
+    platforms:
+      - linux/amd64
+    sbom: true
+
+
 checksum:
   name_template: "checksums.txt"
 snapshot:

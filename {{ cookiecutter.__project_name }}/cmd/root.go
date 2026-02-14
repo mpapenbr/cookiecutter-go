@@ -5,6 +5,7 @@ Copyright {% now 'utc', '%Y' %} {{ cookiecutter.license_owner }}
 package cmd
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"strings"
@@ -13,18 +14,56 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 
+	"{{ cookiecutter.go_module_path.strip('/') }}/cmd/config"
+	"{{ cookiecutter.go_module_path.strip('/') }}/log"
+	"{{ cookiecutter.go_module_path.strip('/') }}/otel"
 	"{{ cookiecutter.go_module_path.strip('/') }}/version"
 )
 
 const envPrefix = "{{ cookiecutter.__project_name }}"
-var cfgFile string
+
+var (
+	cfgFile             string
+	telemetry           *otel.Telemetry
+	useZap              bool
+	removeContextFields bool
+)
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "{{ cookiecutter.__project_name }}",
-	Short: "A brief description of your application",
-	Long: ``,
+	Use:     "{{ cookiecutter.__project_name }}",
+	Short:   "A brief description of your application",
+	Long:    ``,
 	Version: version.FullVersion,
+	PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		logConfig := log.DefaultDevConfig()
+		if config.LogConfig != "" {
+			var err error
+			logConfig, err = log.LoadConfig(config.LogConfig)
+			if err != nil {
+				log.Fatal("could not load log config", log.ErrorField(err))
+			}
+		}
+
+		if config.EnableTelemetry {
+			var err error
+			if telemetry, err = otel.SetupTelemetry(
+				otel.WithTelemetryOutput(otel.ParseTelemetryOutput(config.OtelOutput)),
+			); err != nil {
+				log.Error("Could not setup telemetry", log.ErrorField(err))
+			}
+		}
+
+		l := log.New(
+			log.WithLogConfig(logConfig),
+			log.WithLogLevel(config.LogLevel),
+			log.WithTelemetry(telemetry),
+			log.WithRemoveContextFields(removeContextFields),
+			log.WithUseZap(useZap),
+		)
+		cmd.SetContext(log.AddToContext(context.Background(), l))
+		log.ResetDefault(l)
+	},
 
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
@@ -37,6 +76,11 @@ func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
+	if telemetry != nil {
+		telemetry.Shutdown()
+	}
+	//nolint:errcheck // by design
+	log.Sync()
 }
 
 func init() {
@@ -48,6 +92,32 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "",
 		"config file (default is $HOME/.{{ cookiecutter.__project_name }}.yml)")
+
+	rootCmd.PersistentFlags().BoolVar(&config.EnableTelemetry,
+		"enable-telemetry",
+		false,
+		"enables telemetry")
+
+	rootCmd.PersistentFlags().StringVar(&config.OtelOutput, "otel-output", "stdout",
+		"output destination (stdout, grpc)")
+	rootCmd.PersistentFlags().StringVar(&config.TelemetryEndpoint,
+		"telemetry-endpoint",
+		"localhost:4317",
+		"Endpoint that receives open telemetry data")
+	rootCmd.PersistentFlags().StringVar(&config.LogLevel,
+		"log-level",
+		"info",
+		"controls the log level (debug, info, warn, error, fatal)")
+	rootCmd.PersistentFlags().StringVar(&config.LogConfig,
+		"log-config",
+		"",
+		"configures the logger")
+	rootCmd.PersistentFlags().BoolVar(&useZap, "use-zap",
+		true,
+		"if true, use output from configured zap logger")
+	rootCmd.PersistentFlags().BoolVar(&removeContextFields, "remove-context-fields",
+		true,
+		"if true, don't log fields that contain a context.Context")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
