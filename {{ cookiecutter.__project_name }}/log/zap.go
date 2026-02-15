@@ -257,9 +257,11 @@ func (c *contextIgnoringCore) With(fields []zapcore.Field) zapcore.Core {
 	return &contextIgnoringCore{Core: c.Core.With(fields)}
 }
 
+//nolint:gocritic // interface implementation
 func (c *contextIgnoringCore) Write(ent zapcore.Entry, fields []zapcore.Field) error {
 	cleanedFields := make([]zapcore.Field, 0, len(fields))
-	for _, f := range fields {
+	for i := range fields {
+		f := fields[i]
 		if _, ok := f.Interface.(context.Context); ok {
 			continue
 		}
@@ -268,7 +270,7 @@ func (c *contextIgnoringCore) Write(ent zapcore.Entry, fields []zapcore.Field) e
 	return c.Core.Write(ent, cleanedFields)
 }
 
-//nolint:whitespace // editor/linter issue
+//nolint:gocritic // interface implementation
 func (c *contextIgnoringCore) Check(
 	ent zapcore.Entry,
 	ce *zapcore.CheckedEntry,
