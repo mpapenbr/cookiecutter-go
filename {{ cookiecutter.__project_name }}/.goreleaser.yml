@@ -56,6 +56,7 @@ dockers_v2:
       org.opencontainers.image.version: "{{ .Version }}"
       org.opencontainers.image.source: "https://{{ .ModulePath }}"
       org.opencontainers.image.url: "https://{{ .ModulePath }}"
+{% endraw %}
       org.opencontainers.image.description: "{{ cookiecutter.project_description }}"
       org.opencontainers.image.licenses: "{{ cookiecutter.license }}"
       description: "{{ cookiecutter.project_description }}"
@@ -70,6 +71,7 @@ dockers_v2:
 checksum:
   name_template: "checksums.txt"
 snapshot:
+{% raw %}
   version_template: "{{ incpatch .Version }}-next"
 {% endraw %}
 
