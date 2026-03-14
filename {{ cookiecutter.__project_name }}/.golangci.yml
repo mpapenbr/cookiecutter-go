@@ -231,7 +231,8 @@ formatters:
       module-path: "{{ cookiecutter.go_module_path.strip('/') }}"
       extra-rules: true
     goimports:
-      local-prefixes: "{{ cookiecutter.go_module_path.strip('/') }}"
+      local-prefixes:
+        - "{{ cookiecutter.go_module_path.strip('/') }}"
   exclusions:
     generated: lax
     paths:
