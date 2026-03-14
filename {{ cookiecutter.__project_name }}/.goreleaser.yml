@@ -16,7 +16,9 @@ builds:
       - windows
       - darwin
     # ensures mod timestamp to be the commit timestamp
+    {%- raw %}
     mod_timestamp: "{{ .CommitTimestamp }}"
+    {%- endraw %}
     flags:
       - -trimpath
     ignore:
