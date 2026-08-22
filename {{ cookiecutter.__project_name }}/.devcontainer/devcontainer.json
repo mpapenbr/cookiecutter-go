@@ -1,9 +1,12 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.231.2/containers/go
+// For format details, see https://aka.ms/devcontainer.json.
+// For the Go image see https://github.com/devcontainers/images/tree/main/src/go
 {
 	"name": "Go",
+	"image": "mcr.microsoft.com/devcontainers/go:2-{{ cookiecutter.go_version }}",
+  // in case you want to start with the base image instead of the Go image, uncomment the following line.
+  // you need to add the go feature manually (see below)
+  // "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 
-	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	// alternative: use the bullseye image
 	// "image": "mcr.microsoft.com/devcontainers/go:{{ cookiecutter.go_version }}-bullseye",
 	"runArgs": [
@@ -56,10 +59,14 @@
 	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "vscode",
 	"features": {
-		"ghcr.io/devcontainers/features/go": {
-			"version": "{{ cookiecutter.go_version }}"
+		// uncomment the following lines to install Go if you are starting from the base image instead of the Go image.
+		// "ghcr.io/devcontainers/features/go:2": {
+		// 	"version": "{{ cookiecutter.go_version }}"
+		// },
+		"ghcr.io/devcontainers/features/docker-in-docker:3": {
+			"moby": false
 		},
-		"ghcr.io/devcontainers/features/docker-in-docker": "latest",
+		"ghcr.io/jungaretti/features/ripgrep:1": {},
 		{% if cookiecutter.use_precommit.lower() == 'y' -%}
 		"ghcr.io/devcontainers-extra/features/pre-commit": "latest"
 		{%- endif +%}
