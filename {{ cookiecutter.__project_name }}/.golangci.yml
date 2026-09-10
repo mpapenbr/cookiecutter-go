@@ -229,7 +229,10 @@ formatters:
       simplify: true
     gofumpt:
       module-path: "{{ cookiecutter.go_module_path.strip('/') }}"
-      extra-rules: true
+      extra:
+        group-params: true
+        clothe-returns: true
+        balance-calls: true
     goimports:
       local-prefixes:
         - "{{ cookiecutter.go_module_path.strip('/') }}"
